@@ -1,13 +1,13 @@
 
 var Signature = require( 'dkim-signature' );
-var Key = require( 'dkim-key' );
 var crypto = require( 'crypto' );
-// var DKIMkey = require( 'dkim' );
 var NodeRsa = require( 'node-rsa' );
 var dnsSync = require('./dnssync/dns-sync');
 var dkimKey = require( 'dkim-key' );
 var ed25519id = require('ed25519-id');
 var ed25519noble = require('./noble-ed25519/index');
+const { Resolver } = require('dns').promises;
+const resolver = new Resolver();
 
 var DKIM= {};
 /** @type {String} */
@@ -239,7 +239,8 @@ function parseKeyRecord(records) {
   return key;
 }
 
-function parseKey(key) {
+function parseKey(obj,key) {
+  var error;
   var pubKey = '-----BEGIN PUBLIC KEY-----\n' +
   key.key.toString( 'base64' ) +
   '\n-----END PUBLIC KEY-----'
@@ -295,11 +296,19 @@ function parseKey(key) {
 }
 
 function getKeySync(obj) {
-  var error;
-  
+
   var domain = obj.signature.selector + '._domainkey.' + obj.signature.domain;
   var key =  parseKeyRecord(dnsSync.resolve( domain, 'TXT'));
-  parseKey(parseKey);
+  parseKey(obj,key);
+
+  return key;
+}
+
+async function getKey(obj) {
+
+  var domain = obj.signature.selector + '._domainkey.' + obj.signature.domain;
+  var key = parseKeyRecord( await resolver.resolveTxt( domain));
+  parseKey(obj,key);
 
   return key;
 }
@@ -329,5 +338,6 @@ function verifySig(obj,key) {
 module.exports = {
   parse,
   verifySig,
+  getKey,
   getKeySync
 }
