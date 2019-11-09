@@ -15,9 +15,10 @@ files.forEach((str) => {
         var obj = dkim.parse(eml);
         var key = dkim.getKeySync(obj);
         var result = dkim.verifySig(obj,key);
+        console.log("Off chain verification of " + str + ": " + result)
         
 
-        contract("DkimChecker "  + str, function(accounts) {
+        contract("DkimChecker "  + str+ ": " + obj.signature.algorithm, function(accounts) {
             let instance;
 
             it('Oracle key Writting Simulation' , async function() {
