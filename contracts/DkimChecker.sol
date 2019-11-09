@@ -31,7 +31,7 @@ contract DkimChecker is Ownable, RSA, ED25519, SHA1 {
         uint y;
     }
 
-    address public oracle; 	// to be set equalt to the oracle contract address for access restrictions
+    address public oracle; 	// to be set to the oracle contract address for access restrictions
     mapping(bytes32 => mapping(bytes32 => KeyRsa)) public dkimKeysRsa;     // domain name => selector => key
     mapping(bytes32 => mapping(bytes32 => KeyEd)) public dkimKeysEd;     // domain name => selector => bytes(key)
     
