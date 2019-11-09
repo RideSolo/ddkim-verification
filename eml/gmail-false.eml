@@ -1,0 +1,86 @@
+Return-Path: <flalidji@gmail.com>
+Delivered-To: admin@smartaudit.network
+Received: from box.smartaudit.network ([127.0.0.1])
+	by box.smartaudit.network with LMTP id OH++DKqLs13lBQAAiCIddg
+	for <admin@smartaudit.network>; Sat, 26 Oct 2019 07:56:26 +0800
+X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on
+	box.smartaudit.network
+X-Spam-Level: *
+X-Spam-Status: No, score=1.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,PYZOR_CHECK,
+	RCVD_IN_DNSWL_NONE autolearn=no autolearn_force=no version=3.4.2
+X-Spam-Report: 
+	*  0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
+	*      provider (flalidji[at]yahoo.fr) (flalidji[at]yahoo.fr)
+	*      (ridesolo[at]protonmail.com) (ridesolo[at]protonmail.com)
+	*      (flalidji[at]gmail.com) (ridesolo[at]protonmail.com)
+	*      (flalidji[at]yahoo.fr) (flalidji[at]yahoo.fr)
+	*      (flalidji[at]gmail.com) (flalidji[at]gmail.com)
+	*  0.0 HTML_MESSAGE BODY: HTML included in message
+	* -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+	* -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+	*      author's domain
+	*  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+	*       valid
+	* -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
+	*      https://www.dnswl.org/, no trust
+	*      [2607:f8b0:4864:20:0:0:0:b2c listed in]
+	[list.dnswl.org]
+	*  2.0 PYZOR_CHECK Listed in Pyzor
+	*      (https://pyzor.readthedocs.io/en/latest/)
+X-Spam-Score: 1.9
+Received: from mail-yb1-xb2c.google.com (mail-yb1-xb2c.google.com [IPv6:2607:f8b0:4864:20::b2c])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
+	(No client certificate requested)
+	by box.smartaudit.network (Postfix) with ESMTPS id E49463EA04
+	for <admin@smartaudit.network>; Sat, 26 Oct 2019 07:56:25 +0800 (CST)
+Authentication-Results: box.smartaudit.network; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: box.smartaudit.network;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TYqkkR7e";
+	dkim-atps=neutral
+Received: by mail-yb1-xb2c.google.com with SMTP id e9so1668672ybp.6
+        for <admin@smartaudit.network>; Fri, 25 Oct 2019 16:56:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:from:date:message-id:subject:to;
+        bh=02jk06Al3/6tFXkPXYjqtnV38qSbAL5s7c6NWhLumpc=;
+        b=TYqkkR7eueYYgGdKP8LysEV1McHWEAPuzX5kV5odLqL0DM61KZDZhbUMV61iSsFQ4v
+         J/e8NFUlcIQcIHgm/RCyGTq2pF9Ev5/myMEA7GTLKEq0hOEs2xDFrI9Q05r+mUm+7tJ+
+         dlyhcv0a3dnWSHXv5Jr1EHnjUDRJuT2LKOBnOaWtY1XmBplNrJoijyWzcVN7QpIA82Nr
+         7c+NcM+e93noGqeKRzf/zPyW9rYOK1VG6SG43u94zjPgElE/S0dHGn4N6pTcH9c5PXJe
+         IaraAcsopmvaFWy0ROwQ/qk5OV9JY3sclApMVbFzQfpDxSPJx5Ty9eKF1R2Y60w5XP9E
+         07kw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+        bh=02jk06Al3/6tFXkPXYjqtvV38qSbAL5s7c6NWhLumpc=;
+        b=qIpTG7m304Wv2RCBrgVu6cE/cmuO6SS1xgo3UluaHWAootpaFLRRfvYWYRxAEhhnaf
+         gG0srKhZSZM6WhzYAu/hsT+cqeY1NonVe41O7kxKxtVc1r6Tb/4iIsTKixn1xc27CkAZ
+         t1d+w8V0bUa29BEv7naTC7tF4JBwjl8NytK6mRKWAs1FeTu5ceO+ED/QB2r1ThxzAbZh
+         RJXpjRoZTwQ5KGoKHH+K3vV/q/PyhIH7oWOy671yej/IYqwUCZyflhhubG6IFyv6FVWb
+         ptSMaKP9XeAPQSmPqUxVs3m3tgKCOzasNxU+ICKo48Pyys4idB+JytYVwCEHyuAfti76
+         696Q==
+X-Gm-Message-State: APjAAAUm19YAk+jU/v8AZdGYTE76K+hPSA2+HAvOQJTRmn5Q7VsAmHC8
+	5Fs3ZUt5EStmloAnNxoqMLco4EE0SKbaf7+EYySo8xzZ
+X-Google-Smtp-Source: APXvYqxuy0GsfS47vo1TwqlJ+16ZAoR5v9AVCzmYiPOltRfOt0XeaiiJfJJTce05Mi/tgIJLZjPxyqtp5PscNPoBGfA=
+X-Received: by 2002:a25:3b10:: with SMTP id i16mr5181745yba.188.1572043750535;
+ Fri, 25 Oct 2019 15:49:10 -0700 (PDT)
+MIME-Version: 1.0
+From: FAYCAL LALIDJI <flalidji@gmail.com>
+Date: Sat, 26 Oct 2019 06:48:59 +0800
+Message-ID: <CALL0pKbv+chiX4Zc7cJiN3FMQ_AJwPDwORBY6bdwONo=k-rq2g@mail.gmail.com>
+Subject: test
+To: admin@smartaudit.network
+Content-Type: multipart/alternative; boundary="0000000000005274980595c3f5dc"
+
+--0000000000005274980595c3f5dc
+Content-Type: text/plain; charset="UTF-8"
+
+test
+
+--0000000000005274980595c3f5dc
+Content-Type: text/html; charset="UTF-8"
+
+<div dir="ltr">test</div>
+
+--0000000000005274980595c3f5dc--

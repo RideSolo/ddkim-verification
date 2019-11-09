@@ -1,0 +1,129 @@
+Delivered-To: flalidji@gmail.com
+Received: by 2002:a25:6ed6:0:0:0:0:0 with SMTP id j205csp242763ybc;
+        Wed, 30 Oct 2019 14:18:13 -0700 (PDT)
+X-Google-Smtp-Source: APXvYqwSkE3JbtUkXO1sHhs0HDavRLM4LGNCbOB+Rkq69qD1gk1446nwsdeC9H/+yz8hnfxp7/jc
+X-Received: by 2002:a17:90a:a598:: with SMTP id b24mr1767011pjq.46.1572470293287;
+        Wed, 30 Oct 2019 14:18:13 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1572470293; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=1DgWt64ab0m2O/MGCKRIFeUcRmPOpwjCZx6hJnXuXQ+Sba0IUjd+/nc6zY8WjZLkXE
+         mfRx3rqLAeSsMjbcqySO1GTHlZeievUGLJYBoGJUr2zGz5sifydObfmKa8mUTMjjpUuO
+         dYAXooEMg+jcqzP3nUKl4tVZA9ttDgcY46uRbncYX1A6UAqSyeHQ+aMIUWt3Febu7joU
+         Az1y/ePKiVPMaXDXfpmI3YEGAH0oHbmE0HB0mhh/q3bPKw2hMUXbZmN3rs8l1p/pvsSg
+         s59pci0FNLUspSZU9d5SaQc3xPvs9Oexdq1M9AjbB57f7akr+johVMOUddIhxYpEUVNN
+         KYeg==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=mime-version:content-language:accept-language:message-id:date
+         :thread-index:thread-topic:subject:to:from:dkim-signature;
+        bh=dM7qfdHOBURLlwJ778O6Pcp5Jfz4NEOm0yt0zuEB20E=;
+        b=h5iERgL/oJIsM1NVmpwbSPwgXh2V84ItrCRY8WliG38YQtDht1uV1zN1j6FtGpS6UF
+         jSVI0UDC7PeDsx1esAjF5mtENQjA26oN3MBnEHe1/7lLeiaA0BGJtBYbRwaamH89re/b
+         OU+kGdfAIVNPvBKVfTwkUl3aUv5P6BHHcEyqWZXyzI/f82FOTfDUx8pIHHcfiLtqYl7Y
+         ghSmvED5ObF9W1nYfIb5OvuGKEY1y0U5yBRwstYOKv5615m9f5boK7Vt4J7CkSm1M1bJ
+         Lr1LR2wqltY4jhSSkz+ArD6YAy/8w7QDqhIVK3ELqPQq7f7iVjRRmcBz5lVZ9dCNFKAM
+         A2+Q==
+ARC-Authentication-Results: i=2; mx.google.com;
+       dkim=pass header.i=@outlook.com header.s=selector1 header.b=MwwneKcQ;
+       arc=pass (i=1);
+       spf=pass (google.com: domain of testkdim@outlook.com designates 40.92.255.45 as permitted sender) smtp.mailfrom=testkdim@outlook.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=outlook.com
+Return-Path: <testkdim@outlook.com>
+Received: from APC01-HK2-obe.outbound.protection.outlook.com (mail-oln040092255045.outbound.protection.outlook.com. [40.92.255.45])
+        by mx.google.com with ESMTPS id b8si4111445plk.347.2019.10.30.14.18.13
+        for <flalidji@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+        Wed, 30 Oct 2019 14:18:13 -0700 (PDT)
+Received-SPF: pass (google.com: domain of testkdim@outlook.com designates 40.92.255.45 as permitted sender) client-ip=40.92.255.45;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@outlook.com header.s=selector1 header.b=MwwneKcQ;
+       arc=pass (i=1);
+       spf=pass (google.com: domain of testkdim@outlook.com designates 40.92.255.45 as permitted sender) smtp.mailfrom=testkdim@outlook.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=outlook.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=CpWXXPioZKRvxRiSDXZzqok2uGzSydOd/10SzcdH1Ik/cmINM96rUiMkhwEO3I06TQPiByBncKCY25hCQ7HQwqOl3rmC2EG7oiLQQyfo6jheD3ZpZiucSydga41mFq2V9DbLVdUEs0EEdvfAJHGNOA5Qx0gNTSRHX2nKw1cN6w74kCrkV6lixkFbtIMZx4XU072Smtfld1mFIPVvgHHYjYMfvU1fhkI6PHjMWxw3NoVhvwLfEKBtDFjcN6B/foUYpe3SRfeWbU5+0OVByNJgdtaLzj0UTdks1xIUoa5zlJZWXm+u69rt2L+HLxY2l3esAy6aTZzabI/YNKKp98ZoDw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dM7qfdHOBURLlwJ778O6Pcp5Jfz4NEOm0yt0zuEB20E=;
+ b=fK7ZIruH6Gk96W4DGRPGWOMa1hjddHzkD/rr5RIhHWkzQlQZoB85oBr7ym8zrk+6v8eR+k73qltC0kARhcTaNyqpU5hizW42cIioo16UaCLld1jI12fg6UWLlEB5g6/4z43dxAWm8QzyB1D8hjC29W28DwUHqwEDZ85b8L+ChxC+s8aJDiQIJbbCxuA27TQ1qFlsNSlnTJGQYf0DggZr8rq6qG229zmPdwLqOAYMWFrXOwo92kcD4Hixc6XcyKlCBS5gR+cbBuBmfIB31dpBeHgWbGbr8dYm8YnFu04QJtk2ejjfRYnk05XpwIymjkos+CILrfQERV9QwzE7RgBhcw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dM7qfdHOBURLlwJ778O6Pcp5Jfz4NEOm0yt0zuEB20E=;
+ b=MwwneKcQMKOVW+CxTM7yq0ROcrpADaZFy9AwdY2s38EIqQkWos8nIiwbo0R+OtlEg0qyw322wnL0yVaprBMsaieLbA5isEPzs/Mk3OBYUjHLeKdSS5uKMVvzhBqwJ3ZnDs8QwYP3vPKDN4UGxCU939iubPb8dL2PjIIYtsoLCFrohKHPuYq+K6WvCElmWbN7nzgenppWylQ46wczQcmy7D+1K8yvoeaTDL4emTxG21U6lJK5hFQZyJ/BdH7QiQ4/+ADywKYcEtTX9i1YuG7wemoJLlnfgaSptUZKIYYbiN3/yZa0lTLZSCFHf4MNEi/cyxQ/U5I7jnzF5hbl3QbhjA==
+Received: from SG2APC01FT019.eop-APC01.prod.protection.outlook.com
+ (10.152.250.59) by SG2APC01HT165.eop-APC01.prod.protection.outlook.com
+ (10.152.251.137) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.20.2387.20; Wed, 30 Oct
+ 2019 21:18:12 +0000
+Received: from SG2PR02MB2907.apcprd02.prod.outlook.com (10.152.250.57) by
+ SG2APC01FT019.mail.protection.outlook.com (10.152.250.121) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2387.20 via Frontend Transport; Wed, 30 Oct 2019 21:18:11 +0000
+Received: from SG2PR02MB2907.apcprd02.prod.outlook.com
+ ([fe80::e0ed:9fae:3137:6d4]) by SG2PR02MB2907.apcprd02.prod.outlook.com
+ ([fe80::e0ed:9fae:3137:6d4%3]) with mapi id 15.20.2408.018; Wed, 30 Oct 2019
+ 21:18:11 +0000
+From: test test <testkdim@outlook.com>
+To: "flalidji@gmail.com" <flalidji@gmail.com>
+Subject: outlook
+Thread-Topic: outlook
+Thread-Index: AQHVj2dol+AO4ioAkUiIPo0kmNU9lg==
+Date: Wed, 30 Oct 2019 21:18:11 +0000
+Message-ID: 
+  <SG2PR02MB29079BC3C2DCDC9E3F2F9B55C1600@SG2PR02MB2907.apcprd02.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-incomingtopheadermarker:
+ OriginalChecksum:B7BCD2DF73A2D5CB38C0189412B6F4317F2BA29AED2CCB9D5A865E2043F75E71;UpperCasedChecksum:DF15458CB87465C1EE51FF1C65285B10EEA3512A706ACB257010E720DD1865A6;SizeAsReceived:6561;Count:41
+x-tmn: [uU+4J5VgdX3exEyORL3wFWLv00FGDOgijUdhAsQkF2c=]
+x-ms-publictraffictype: Email
+x-incomingheadercount: 41
+x-eopattributedmessage: 0
+x-ms-traffictypediagnostic: SG2APC01HT165:
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ K4W6Pc59x4E7FnUemt1bPULoIqqGFP/T50qtSgKuv3uyf1uugE2QajhxEtQe7+BB
+x-ms-exchange-transport-forked: True
+Content-Type: multipart/alternative;
+	boundary="_000_SG2PR02MB29079BC3C2DCDC9E3F2F9B55C1600SG2PR02MB2907apcp_"
+MIME-Version: 1.0
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: f08be57d-2699-4ed5-2740-08d75d7eab6f
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Oct 2019 21:18:11.8556
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Internet
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SG2APC01HT165
+
+--_000_SG2PR02MB29079BC3C2DCDC9E3F2F9B55C1600SG2PR02MB2907apcp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+test
+
+--_000_SG2PR02MB29079BC3C2DCDC9E3F2F9B55C1600SG2PR02MB2907apcp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+test</div>
+</body>
+</html>
+
+--_000_SG2PR02MB29079BC3C2DCDC9E3F2F9B55C1600SG2PR02MB2907apcp_--

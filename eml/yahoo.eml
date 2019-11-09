@@ -1,0 +1,83 @@
+Delivered-To: flalidji@gmail.com
+Received: by 2002:a25:6ed6:0:0:0:0:0 with SMTP id j205csp192511ybc;
+        Wed, 30 Oct 2019 13:20:58 -0700 (PDT)
+X-Google-Smtp-Source: APXvYqyVO8NeXApVnIwiKYxLTuftPCx+3DRrPUGiUXLhWi5/JK2rCf0uVLAuP5n6drvHe3jcNeAc
+X-Received: by 2002:adf:b603:: with SMTP id f3mr1700049wre.306.1572466858704;
+        Wed, 30 Oct 2019 13:20:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1572466858; cv=none;
+        d=google.com; s=arc-20160816;
+        b=f1tiGKADRdr6InHQNfxenZ4Z0F9NXIgmbmvuJ4KIEmk4oXUxu9WyPElJE3ZHAojl4i
+         bjq+wksXBcQZoWKTDqcr8+Bzm2RYs8s5f9OJmu6aeTlbi4HC/9/YnPsVF+Zr8+qHsd8B
+         GUWrqWJ464phyLmClFfjP+t24ElYVpUTEKfdmV1exUTn55Kw2/UbLqKEkEzzFwutkasK
+         SbFWn/2lYM+WvIHtv06CKm7QIKDz2XhDpK0wpbimeBdiPeTKIQ/gSt66Y+M1iexw9bt8
+         wdQki/kco2yroPOyOysOD2z/V2JG1pbqTWeYTqDphdIk6Nz4Aajj72iPxy4UxNrkTnoE
+         12hQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=references:mime-version:subject:message-id:to:from:date
+         :dkim-signature;
+        bh=qsd2nTy9grChy1SV8MO/pmxS1QMtcvd2L+OoGDsp1wo=;
+        b=C6x6e3q3PYFLlTEXirUVVDigNZHXsXESFQKvpl87paaOg1f4TYwUxVscrk8oWodSw/
+         58i3M1q70H27/oul59hVcyZ36k7xkuw9mUNtqoSdxyvJeVbdVW8h4q6uzQZ5e4Aq1EGh
+         bSfyX5HiizS9BY78XcGfz56z3j9ytqwWJvZYek/NNLGhUNkdlNayQ0jVIEKy92cYNOvx
+         7HDkGjp1pacUVb7oEFGxqrz6nIdzd1//qV31CKwMog29A+kyJns4uHM0orDku5WAi9H0
+         HNct6eIGTetMBujYF5BS/Fdc6eGpPMfI5zfuASyDPnBwuFDOSBjjbkqK9umU5drLFUgl
+         jNag==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@yahoo.fr header.s=s2048 header.b="R1XbQN/j";
+       spf=pass (google.com: domain of flalidji@yahoo.fr designates 77.238.177.83 as permitted sender) smtp.mailfrom=flalidji@yahoo.fr;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=yahoo.fr
+Return-Path: <flalidji@yahoo.fr>
+Received: from sonic305-21.consmr.mail.ir2.yahoo.com (sonic305-21.consmr.mail.ir2.yahoo.com. [77.238.177.83])
+        by mx.google.com with ESMTPS id m6si2971529wrw.21.2019.10.30.13.20.58
+        for <flalidji@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 30 Oct 2019 13:20:58 -0700 (PDT)
+Received-SPF: pass (google.com: domain of flalidji@yahoo.fr designates 77.238.177.83 as permitted sender) client-ip=77.238.177.83;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@yahoo.fr header.s=s2048 header.b="R1XbQN/j";
+       spf=pass (google.com: domain of flalidji@yahoo.fr designates 77.238.177.83 as permitted sender) smtp.mailfrom=flalidji@yahoo.fr;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=yahoo.fr
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.fr; s=s2048; t=1572466858; bh=qsd2nTy9grChy1SV8MO/pmxS1QMtcvd2L+OoGDsp1wo=; h=Date:From:To:Subject:References:From:Subject; b=R1XbQN/jflQOtwfaffyIJPBNrCxmbseDmNmkolb2lMBsIqwKpF10qkdbct+lgXoFz49ce5p+N6aghxnqq4+E2s2UzZ2xh+kFV+ocLLpdTqDMOko64zZglZpYsG6mg6rZz1qZTqzCZc+DDCNLw195LjODm5EVNkpfla1ZPcteLDmy2PhdWrgYAmnHCSGJqykumFEgKIospvk4LP8+BFD9hVtCWb/8yaCfgNSVGh00q4ZuLMhLGFQvn0CTLvae9c/7kjJQ9ePYFZocngSjD057fzbSFYcJKboKZNHc6CwldI7KSLdXERlSlUPZjjGsZ7uKmQJ9fQ3M9b8D6j4Qqu6Jog==
+X-YMail-OSG: b0h6lUcVM1lHbLrnTbbLjs4xzHPo.VpkGr0NrrypPFWGzt7FP7Ld6EaaXonZHi5
+ 94uKxibObIDQT_vHATH2Rl3LL6QI922tiu3VTIhf4eti2UCDiCPqFrfoAzfaOLFs3s2PHkTvB310
+ eHmKAezNNfjHT03vjv6I72QBWASlOKIK0IzelHlkyk.FD5TS_xwZig8idAjYOg5WKMpNZF6rJeQ6
+ HVYsMJX3ICTU1MYd_Pkd.Yt795QISqe.cbm_NwALIqsO8zMoJRM1EBhY11KYSMAcJ_.hxpsA6o4I
+ 7T4qdCJZkPDazTksSuor4_SVcQMgC6IEqSTWyStqaeLYpJCTuGVBg7oCqu43u74U7gBYfZNmmShu
+ hqe95LNx7Je_pq7Ow6nNBqHc02.93YB4x1jH430Yn9FBRs.p77mGS_SR16XRjLuRWKpeD4pLyRKW
+ Gn79tqcfxQXmXCN5hlF.QQa.kBjWDMzYZAriIjx3k6ZRtMh0oZLisf.pXmsNnW6q.sAib1gjd4kt
+ zCkA7cfL_Bt23eaLzQiXwMPlxQdpH5zTe8Zzl7KINbCQx8wVRPDaio8Hb6jRoGqWIr4mmnzbGiB7
+ 0MMJSdArWQ_uDl0wkJKobnxoZumbl_NDc14lh1xkfBLn7a_0iZoyl_0ndAthLGSZs7k2d0MyREX_
+ 3dDAlCu8VzDs4JhygzQzNFNbeeq_40gN2toRXGc1eBGZ7Se6xkFcDgh8ycG4rh1BFUJgG0ByGNdc
+ saxhGQHOpEl.XsQD1MAjTwHkCOPq53ryqmrkzfuyrSe1a70.2alvR1Dsu5b_eFuakdpBhJ24ZKLQ
+ nklQNQY0vYAhvnYepEegDxNJlAfZVqiMzBwd18pHzV2bBKOj6ZpfhJf4gDvtBESO3_wXo5fIf3Rq
+ .Bd2OtP3mfsuz3Spo9odG_9PzNTGyk_B8s52tvpZO9.GwoCJQRY3Mx2TFU0E_O3a0kCvzUV8D2yh
+ mELNM1PYV0u_vnPDkfW8IZFRmG2lL4WZ6h_ZD_4foOQiP6.eOtB0fWOYeW64vD9LdJGWsbPenQdI
+ d14wTSijw8wLWKtN_eqWCwQHch9XiVlZA4Q5fuuVV_Py_3yr4jJVWrb5hGgCSTLZ.pg.BKsc6Ce9
+ rk43S6TGakzzM8w48mc74kr.mpHLg.IosWBCN5scIfY1II4UELRiQWRQjMBbblaDrYsbgmZaRRwF
+ te7YbDLyUujfwf9.W53Rw2hsvy2L0smyaby5GNlubiIosXc9v8zBvKQBTNvKq1xGbsq.33ODZbDS
+ HqBWrOZlHcuTci4U3IuLUVUnvQ_r_LrThzyV8pVCNWzeVGsueCYTEOmGlcOlhPkkvefkyx0rbjbD
+ KLhsZJWnQd8piRR5a8vxM9la.
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic305.consmr.mail.ir2.yahoo.com with HTTP; Wed, 30 Oct 2019 20:20:58 +0000
+Date: Wed, 30 Oct 2019 20:20:56 +0000 (UTC)
+From: FAYCAL LALIDJI <flalidji@yahoo.fr>
+To: "flalidji@gmail.com" <flalidji@gmail.com>
+Message-ID: <258134665.4154283.1572466856197@mail.yahoo.com>
+Subject: test
+MIME-Version: 1.0
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_4154282_104054873.1572466856197"
+References: <258134665.4154283.1572466856197.ref@mail.yahoo.com>
+X-Mailer: WebService/1.1.14539 YMailNorrin Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36
+Content-Length: 489
+
+------=_Part_4154282_104054873.1572466856197
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+test
+------=_Part_4154282_104054873.1572466856197
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<html><head></head><body><div class="yahoo-style-wrap" style="font-family:Helvetica Neue, Helvetica, Arial, sans-serif;font-size:13px;"><div dir="ltr" data-setdir="false">test</div></div></body></html>
+------=_Part_4154282_104054873.1572466856197--

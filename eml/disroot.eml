@@ -1,0 +1,81 @@
+Delivered-To: flalidji@gmail.com
+Received: by 2002:a25:6ed6:0:0:0:0:0 with SMTP id j205csp216653ybc;
+        Wed, 30 Oct 2019 13:48:27 -0700 (PDT)
+X-Google-Smtp-Source: APXvYqwL2uBwkc2lH2IbAPkQ6h/GTZJF8FnV85uonQDX/ObajezADFgTf0TS3ZLAOgcOZoxpMcFz
+X-Received: by 2002:a17:906:a3d4:: with SMTP id ca20mr251747ejb.212.1572468507369;
+        Wed, 30 Oct 2019 13:48:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1572468507; cv=none;
+        d=google.com; s=arc-20160816;
+        b=lc2m4TV9u3PMukLaqSbRdtcaDqSh7Jaf8k9fxRrZsgnA493paERLeKlw72xjxuD8Pc
+         HyNLrWTWblFGCM2/Liea27VSc8o+pNk5cVCCRYU9m13HyDXhGKUr3bOxp1OMUsufh6Vp
+         ijFLJbskIAGxJu+VUZV4auAxcg8+j7303lshKx6nc/X5kjQtGLiCd+o2sR49+LSiJVaK
+         YmusxEGXmmlLwb6o3h9X5jlr5zFRZk6nMnnLDPFvxMs48LyRLGHYKOlPwjvQIHndYac3
+         fhOVD2JaxCZtZvotK1M4WJUt2kv7OG5yOLVtIbg0gO+wnaEtk00n7uyOGegWPuGZkwfs
+         nu4w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=to:subject:message-id:from:date:dkim-signature:mime-version;
+        bh=SmLQgPsaDZ7fB5XoLHjAzXESRoZhMOu4dtrVyF//yd8=;
+        b=za0GhjutkguGBdCkSblR0jhsGJKiinvqTxH8fCyK+lQ0LBn/u5y+Bb89e3Cg515EE7
+         /WpSGstZ4X/j/a4MPD7EfH5iUAAw/KWJ+irTt1AFxrNTBE6tsHXT21yEjxiCigzbzK7U
+         7X/CTeDjtp3bl2rCGd89H2WZXOl/rljwFXGHDwLpT2brosGnb3q56tt66ptG9F1Q8MLw
+         E0IfCMVv4++il11LDXzDgcxeXPmMXHv4gowlRnRFD+eFvr+W9nxCdIzXmg1TW1LpMfiw
+         fOsotDLq/NRjMBuG/C8/Vo8+HHLaEPaWb3IHOiChilFHqMKEHIqi3i+6/PMRUiG3m2Rk
+         rqew==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@disroot.org header.s=mail header.b=mL54tgfe;
+       spf=pass (google.com: domain of diesel@disroot.org designates 178.21.23.139 as permitted sender) smtp.mailfrom=diesel@disroot.org;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=disroot.org
+Return-Path: <diesel@disroot.org>
+Received: from knopi.disroot.org (knopi.disroot.org. [178.21.23.139])
+        by mx.google.com with ESMTPS id y17si1917393ejr.51.2019.10.30.13.48.27
+        for <flalidji@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+        Wed, 30 Oct 2019 13:48:27 -0700 (PDT)
+Received-SPF: pass (google.com: domain of diesel@disroot.org designates 178.21.23.139 as permitted sender) client-ip=178.21.23.139;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@disroot.org header.s=mail header.b=mL54tgfe;
+       spf=pass (google.com: domain of diesel@disroot.org designates 178.21.23.139 as permitted sender) smtp.mailfrom=diesel@disroot.org;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=disroot.org
+Received: from localhost (localhost [127.0.0.1])
+	by disroot.org (Postfix) with ESMTP id 1A18D30F62
+	for <flalidji@gmail.com>; Wed, 30 Oct 2019 21:48:27 +0100 (CET)
+X-Virus-Scanned: Debian amavisd-new at disroot.org
+Received: from knopi.disroot.org ([127.0.0.1])
+	by localhost (disroot.org [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id lIbhiR-Ga3DD for <flalidji@gmail.com>;
+	Wed, 30 Oct 2019 21:48:26 +0100 (CET)
+Mime-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
+	t=1572468506; bh=SmLQgPsaDZ7fB5XoLHjAzXESRoZhMOu4dtrVyF//yd8=;
+	h=Date:From:Subject:To;
+	b=mL54tgfeMutAGb9RQW2PfrFRbWu+6OEJ6nKoE3jFIHkvFFL19VpDRel5g2ClmqeyV
+	 rJvhAAKV//Dl4IqL9GJb7kFRgD+yJloQwf4LsiGqGWhJkGDWqvMXsq+TrhDOGN8IRM
+	 5kzgMCuP9dn6zy97/6VNaSTCTmhbHIfTBd5QW5iQmhKoEIPuOLkRCMw4Yj4rBZbhQQ
+	 RXMY3tKO0uKaXYLgTFSTo9lpITkzXx7cGNhCrY3amCgBHYHAO3bRPbFhb2h7jrl+Qk
+	 RLMIo5BkxfSdxOodE0R5dKe6Ah5YrGp6CaQfBD9kYbuvLDosklqqA3oAWZAKsUDW3J
+	 dlz1+7qL999ow==
+Date: Wed, 30 Oct 2019 20:48:25 +0000
+Content-Type: multipart/alternative;
+ boundary="--=_RainLoop_642_562302276.1572468505"
+From: diesel@disroot.org
+Message-ID: <73db27fc7acada38cf999c8eee0c0b6e@disroot.org>
+Subject: disroot
+To: flalidji@gmail.com
+
+
+----=_RainLoop_642_562302276.1572468505
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+test
+
+----=_RainLoop_642_562302276.1572468505
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE html><html><head><meta http-equiv=3D"Content-Type" content=3D"t=
+ext/html; charset=3Dutf-8" /></head><body><div data-html-editor-font-wrap=
+per=3D"true" style=3D"font-family: arial, sans-serif; font-size: 13px;">t=
+est<br><br><signature></signature></div></body></html>
+
+----=_RainLoop_642_562302276.1572468505--
