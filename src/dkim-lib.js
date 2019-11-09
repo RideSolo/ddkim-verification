@@ -239,12 +239,7 @@ function parseKeyRecord(records) {
   return key;
 }
 
-function getKeySync(obj) {
-  var error;
-  
-  var domain = obj.signature.selector + '._domainkey.' + obj.signature.domain;
-  var key =  parseKeyRecord(dnsSync.resolve( domain, 'TXT'));
-  
+function parseKey(key) {
   var pubKey = '-----BEGIN PUBLIC KEY-----\n' +
   key.key.toString( 'base64' ) +
   '\n-----END PUBLIC KEY-----'
@@ -297,6 +292,14 @@ function getKeySync(obj) {
     error.code = DKIM.PERMFAIL;
     throw error;
   }
+}
+
+function getKeySync(obj) {
+  var error;
+  
+  var domain = obj.signature.selector + '._domainkey.' + obj.signature.domain;
+  var key =  parseKeyRecord(dnsSync.resolve( domain, 'TXT'));
+  parseKey(parseKey);
 
   return key;
 }

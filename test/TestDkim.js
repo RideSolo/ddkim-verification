@@ -14,8 +14,9 @@ files.forEach((str) => {
     try {
         var obj = dkim.parse(eml);
         var key = dkim.getKeySync(obj);
+        // console.log("Off-line verification of "obj.algo)
         var result = dkim.verifySig(obj,key);
-        console.log(obj.algo)
+        
 
         contract("DkimChecker "  + str, function(accounts) {
             let instance;
