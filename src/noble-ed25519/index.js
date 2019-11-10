@@ -31,14 +31,16 @@ THE SOFTWARE.
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 const ENCODING_LENGTH = 32;
-const A = -1n;
-const C = 1n;
-exports.P = 2n ** 255n - 19n;
-exports.PRIME_ORDER = 2n ** 252n + 27742317777372353535851937790883648493n;
-const d = -121665n * inversion(121666n);
-const I = powMod(2n, (exports.P - 1n) / 4n, exports.P);
+const A = -1 n;
+const C = 1 n;
+exports.P = 2 n ** 255 n - 19 n;
+exports.PRIME_ORDER = 2 n ** 252 n + 27742317777372353535851937790883648493 n;
+const d = -121665 n * inversion(121666 n);
+const I = powMod(2 n, (exports.P - 1 n) / 4 n, exports.P);
 class Point {
     constructor(x, y) {
         this.x = x;
@@ -52,12 +54,12 @@ class Point {
         const y = arrayToNumberLE(normed);
         const sqrY = y * y;
         const sqrX = mod((sqrY - C) * inversion(C * d * sqrY - A), exports.P);
-        let x = powMod(sqrX, (exports.P + 3n) / 8n, exports.P);
+        let x = powMod(sqrX, (exports.P + 3 n) / 8 n, exports.P);
         const isLastByteOdd = (bytes[len] & 0x80) !== 0;
-        if (mod(x * x - sqrX, exports.P) !== 0n) {
+        if (mod(x * x - sqrX, exports.P) !== 0 n) {
             x = mod(x * I, exports.P);
         }
-        const isXOdd = (x & 1n) === 1n;
+        const isXOdd = (x & 1 n) === 1 n;
         if (isLastByteOdd !== isXOdd) {
             x = mod(-x, exports.P);
         }
@@ -70,7 +72,7 @@ class Point {
         for (let i = hex.length - 2, j = 0; j < ENCODING_LENGTH && i >= 0; i -= 2, j++) {
             u8[j] = parseInt(hex[i] + hex[i + 1], 16);
         }
-        const mask = this.x & 1n ? 0x80 : 0;
+        const mask = this.x & 1 n ? 0x80 : 0;
         u8[ENCODING_LENGTH - 1] |= mask;
         return u8;
     }
@@ -89,18 +91,18 @@ class Point {
     add(p2) {
         const p1 = this;
         const x = (p1.x * p2.y + p2.x * p1.y) *
-            inversion(1n + d * p1.x * p2.x * p1.y * p2.y);
+            inversion(1 n + d * p1.x * p2.x * p1.y * p2.y);
         const y = (p1.y * p2.y + p1.x * p2.x) *
-            inversion(1n - d * p1.x * p2.x * p1.y * p2.y);
+            inversion(1 n - d * p1.x * p2.x * p1.y * p2.y);
         return new Point(mod(x, exports.P), mod(y, exports.P));
     }
     subtract(p2) {
         return this.add(p2.reverseY());
     }
     multiply(n) {
-        let q = new Point(0n, 1n);
-        for (let db = this; n > 0n; n >>= 1n, db = db.add(db)) {
-            if ((n & 1n) === 1n) {
+        let q = new Point(0 n, 1 n);
+        for (let db = this; n > 0 n; n >>= 1 n, db = db.add(db)) {
+            if ((n & 1 n) === 1 n) {
                 q = q.add(db);
             }
         }
@@ -108,7 +110,7 @@ class Point {
     }
 }
 exports.Point = Point;
-exports.BASE_POINT = new Point(15112221349535400772501151409588531511454012693041857206046113283949847762202n, 46316835694926478169428394003475163141307993866256225615783033603165251855960n);
+exports.BASE_POINT = new Point(15112221349535400772501151409588531511454012693041857206046113283949847762202 n, 46316835694926478169428394003475163141307993866256225615783033603165251855960 n);
 class SignResult {
     constructor(r, s) {
         this.r = r;
@@ -140,18 +142,19 @@ if (typeof window == "object" && "crypto" in window) {
         const buffer = await window.crypto.subtle.digest("SHA-512", message.buffer);
         return new Uint8Array(buffer);
     };
-}
-else if (typeof process === "object" && "node" in process.versions) {
-    const { createHash } = require("crypto");
+} else if (typeof process === "object" && "node" in process.versions) {
+    const {
+        createHash
+    } = require("crypto");
     sha512 = async (message) => {
         const hash = createHash("sha512");
         hash.update(message);
         return Uint8Array.from(hash.digest());
     };
-}
-else {
+} else {
     throw new Error("The environment doesn't have sha512 function");
 }
+
 function concatTypedArrays(...args) {
     const result = new Uint8Array(args.reduce((a, arr) => a + arr.length, 0));
     for (let i = 0, pad = 0; i < args.length; i++) {
@@ -161,6 +164,7 @@ function concatTypedArrays(...args) {
     }
     return result;
 }
+
 function numberToUint8Array(num) {
     let hex = num.toString(16);
     hex = hex.length & 1 ? `0${hex}` : hex;
@@ -171,29 +175,33 @@ function numberToUint8Array(num) {
     }
     return u8;
 }
+
 function arrayToNumberLE(bytes) {
-    let value = 0n;
+    let value = 0 n;
     for (let i = 0; i < bytes.length; i++) {
-        value += (BigInt(bytes[i]) & 255n) << (8n * BigInt(i));
+        value += (BigInt(bytes[i]) & 255 n) << (8 n * BigInt(i));
     }
     return value;
 }
+
 function powMod(x, power, order) {
-    let res = 1n;
+    let res = 1 n;
     while (power > 0) {
-        if (power & 1n) {
+        if (power & 1 n) {
             res = mod(res * x, order);
         }
-        power >>= 1n;
+        power >>= 1 n;
         x = mod(x * x, order);
     }
     return res;
 }
+
 function arrayToHex(uint8a) {
     return Array.from(uint8a)
         .map(c => c.toString(16).padStart(2, "0"))
         .join("");
 }
+
 function hexToArray(hash) {
     hash = hash.length & 1 ? `0${hash}` : hash;
     const len = hash.length;
@@ -203,19 +211,23 @@ function hexToArray(hash) {
     }
     return result;
 }
+
 function hexToNumber(hex) {
     return BigInt(`0x${hex}`);
 }
+
 function arrayToNumberBE(bytes) {
-    let value = 0n;
+    let value = 0 n;
     for (let i = bytes.length - 1, j = 0; i >= 0; i--, j++) {
-        value += (BigInt(bytes[i]) & 255n) << (8n * BigInt(j));
+        value += (BigInt(bytes[i]) & 255 n) << (8 n * BigInt(j));
     }
     return value;
 }
 
 function hashNumberSync(...args) {
-    const {createHash} = require("crypto");
+    const {
+        createHash
+    } = require("crypto");
     const messageArray = concatTypedArrays(...args);
     const hash = Uint8Array.from(createHash("sha512").update(messageArray).digest());
     const value = arrayToNumberLE(hash);
@@ -232,20 +244,24 @@ async function hashNumber(...args) {
 }
 
 function getPrivateBytes(privateKey) {
-    return sha512(privateKey instanceof Uint8Array
-        ? privateKey
-        : numberToUint8Array(privateKey));
+    return sha512(privateKey instanceof Uint8Array ?
+        privateKey :
+        numberToUint8Array(privateKey));
 }
+
 function keyPrefix(privateBytes) {
     return privateBytes.slice(ENCODING_LENGTH);
 }
+
 function mod(a, b) {
     const res = a % b;
     return res >= 0 ? res : b + res;
 }
+
 function inversion(num) {
-    return powMod(num, exports.P - 2n, exports.P);
+    return powMod(num, exports.P - 2 n, exports.P);
 }
+
 function encodePrivate(privateBytes) {
     const last = ENCODING_LENGTH - 1;
     const head = privateBytes.slice(0, ENCODING_LENGTH);
@@ -254,22 +270,23 @@ function encodePrivate(privateBytes) {
     head[last] |= 64;
     return arrayToNumberLE(head);
 }
+
 function normalizePrivateKey(privateKey) {
     let res;
     if (privateKey instanceof Uint8Array) {
         res = arrayToNumberBE(privateKey);
-    }
-    else if (typeof privateKey === "string") {
+    } else if (typeof privateKey === "string") {
         res = hexToNumber(privateKey);
-    }
-    else {
+    } else {
         res = BigInt(privateKey);
     }
     return res;
 }
+
 function normalizePublicKey(publicKey) {
     return publicKey instanceof Point ? publicKey : Point.fromHex(publicKey);
 }
+
 function normalizePoint(point, privateKey) {
     if (privateKey instanceof Uint8Array) {
         return point.encode();
@@ -279,11 +296,13 @@ function normalizePoint(point, privateKey) {
     }
     return point;
 }
+
 function normalizeSignature(signature) {
-    return signature instanceof SignResult
-        ? signature
-        : SignResult.fromHex(signature);
+    return signature instanceof SignResult ?
+        signature :
+        SignResult.fromHex(signature);
 }
+
 function normalizeHash(hash) {
     return hash instanceof Uint8Array ? hash : hexToArray(hash);
 }
@@ -318,6 +337,7 @@ async function verify(signature, hash, publicKey) {
     const R = signature.r.add(publicKey.multiply(h));
     return S.x === R.x && S.y === R.y;
 }
+
 function verifySync(signature, hash, publicKey) {
     hash = normalizeHash(hash);
     publicKey = normalizePublicKey(publicKey);
@@ -327,5 +347,6 @@ function verifySync(signature, hash, publicKey) {
     const R = signature.r.add(publicKey.multiply(h));
     return S.x === R.x && S.y === R.y;
 }
+
 exports.verify = verify;
 exports.verifySync = verifySync;

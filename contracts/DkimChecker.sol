@@ -1,6 +1,5 @@
 pragma solidity >=0.4.21 <0.6.0;
 
-// import "./algorithms/RSAVerify.sol";
 import "./algorithms/BytesUtils.sol";
 import "./algorithms/RSA.sol";
 import "./algorithms/ED25519.sol";
@@ -9,9 +8,8 @@ import "./algorithms/SHA1.sol";
 import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 
 contract DkimChecker is Ownable, RSA, ED25519, SHA1 {
+    using BytesUtils for *;
 
-	using BytesUtils for *;
-    
     // ----------------------------------------------------------------------------------------------------//
     // ----------------------------------------------------------------------------------------------------//
     // ----------------------------------------------------------------------------------------------------//
@@ -45,15 +43,15 @@ contract DkimChecker is Ownable, RSA, ED25519, SHA1 {
     // ----------------------------------------------------------------------------------------------------//
 
     constructor(address _oracle) public {
-		oracle =_oracle;
-	}
+        oracle =_oracle;
+    }
 
-	// Should be used with all function involving the oracle interaction, for access restrictions
-	modifier onlyOracle() {
-		if(msg.sender != oracle) revert("The msg.sender is different than the oracle address");
-		_;
-	}
-    
+    // Should be used with all function involving the oracle interaction, for access restrictions
+    modifier onlyOracle() {
+    	if(msg.sender != oracle) revert("The msg.sender is different than the oracle address");
+    	_;
+    }
+
     // ----------------------------------------------------------------------------------------------------//
     // ----------------------------------------------------------------------------------------------------//
     // ----------------------------------------------------------------------------------------------------//
@@ -101,19 +99,19 @@ contract DkimChecker is Ownable, RSA, ED25519, SHA1 {
 
     event ReturnVal(bool);
 
-	function checkBodySHA1(bytes memory body, bytes20 bodyHash) public returns (bool){
-		bytes20 computed = sha1(body);
+    function checkBodySHA1(bytes memory body, bytes20 bodyHash) public returns (bool){
+      bytes20 computed = sha1(body);
 
         emit ReturnVal(bodyHash == computed); // just added to simulate a non-view function
         return true;
-	}
-	
-	function checkBodySHA256(bytes memory body, bytes32 bodyHash) public returns (bool){
-		bytes32 computed = sha256(body);
+    }
+
+    function checkBodySHA256(bytes memory body, bytes32 bodyHash) public returns (bool){
+      bytes32 computed = sha256(body);
 
         emit ReturnVal(bodyHash == computed); // just added to simulate a non-view function
         return true;
-	}
+    }
 
     // ----------------------------------------------------------------------------------------------------//
     // ----------------------------------------------------------------------------------------------------//
@@ -155,7 +153,7 @@ contract DkimChecker is Ownable, RSA, ED25519, SHA1 {
     // _hash is the sha512 of abi.encodePacked(r,p,sha256(_canonicalizedHeader))
     
     function verifyED25519( string memory _selector, string memory _domain, uint[2] memory _R, uint[2] memory _lhs ,uint _hash)
-        public returns (bool)
+    public returns (bool)
     {
         KeyEd memory key = dkimKeysEd[keccak256(abi.encodePacked(_selector))][keccak256(abi.encodePacked(_domain))];
         uint[2] memory rhs;

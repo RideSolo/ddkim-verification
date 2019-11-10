@@ -1,4 +1,3 @@
-
 // The MIT License (MIT)
 
 // Copyright (c) 2014 skoranga
@@ -42,7 +41,7 @@ for (var i = 0; i < process.argv.length; i++) {
     }
 }
 
-fn(function (err, ip) {
+fn(function(err, ip) {
     if (err) {
         debug(err);
         process.exit(1);
