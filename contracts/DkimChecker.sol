@@ -61,7 +61,7 @@ contract DkimChecker is Ownable, RSA, ED25519, SHA1 {
     // ----------------------------------------------------------------------------------------------------//
     // ----------------------------------------------------------------------------------------------------//
 
-    // Dkim key setter function to be used bu
+    // Dkim key setter function to be used by the oracle to save the public key components on-chain
     function setDkimKeyRsa(string memory _selector, string memory _domain, bytes memory _exponent, bytes memory _modulus) public onlyOracle returns(bool){
         // Extra requirements can be added here to avoid issue with domainkey dns record update
         KeyRsa storage key = dkimKeysRsa[keccak256(abi.encodePacked(_selector))][keccak256(abi.encodePacked(_domain))];
