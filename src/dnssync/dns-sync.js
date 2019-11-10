@@ -28,6 +28,7 @@
 // ---------------------------------------------------------------------//
 
 'use strict';
+
 var util = require('util'),
     path = require('path'),
     shell = require('shelljs'),
@@ -57,9 +58,7 @@ module.exports = {
         var response,
             cmd = util.format('"%s" "%s" %s %s', nodeBinary, scriptPath, hostname, type || '');
 
-        response = shell.exec(cmd, {
-            silent: true
-        });
+        response = shell.exec(cmd, {silent: true});
         if (response && response.code === 0) {
             return JSON.parse(response.stdout);
         }
