@@ -13,12 +13,6 @@ contract DkimChecker is Ownable, RSA, ED25519, SHA1, SHA512 {
 
     // ----------------------------------------------------------------------------------------------------//
     // ----------------------------------------------------------------------------------------------------//
-    // ----------------------------------------------------------------------------------------------------//
-    // ----------------------------------------------------------------------------------------------------//
-    // ----------------------------------------------------------------------------------------------------//
-    // ----------------------------------------------------------------------------------------------------//
-    // ----------------------------------------------------------------------------------------------------//
-    // ----------------------------------------------------------------------------------------------------//
 
     struct KeyRsa {
         bytes exponent;
@@ -37,12 +31,6 @@ contract DkimChecker is Ownable, RSA, ED25519, SHA1, SHA512 {
     
     // ----------------------------------------------------------------------------------------------------//
     // ----------------------------------------------------------------------------------------------------//
-    // ----------------------------------------------------------------------------------------------------//
-    // ----------------------------------------------------------------------------------------------------//
-    // ----------------------------------------------------------------------------------------------------//
-    // ----------------------------------------------------------------------------------------------------//
-    // ----------------------------------------------------------------------------------------------------//
-    // ----------------------------------------------------------------------------------------------------//
 
     constructor(address _oracle) public {
         oracle =_oracle;
@@ -56,14 +44,10 @@ contract DkimChecker is Ownable, RSA, ED25519, SHA1, SHA512 {
 
     // ----------------------------------------------------------------------------------------------------//
     // ----------------------------------------------------------------------------------------------------//
-    // ----------------------------------------------------------------------------------------------------//
-    // ----------------------------------------------------------------------------------------------------//
-    // ----------------------------------------------------------------------------------------------------//
-    // ----------------------------------------------------------------------------------------------------//
-    // ----------------------------------------------------------------------------------------------------//
-    // ----------------------------------------------------------------------------------------------------//
 
     // Dkim key setter function to be used by the oracle to save the public key components on-chain
+    //_selector and _domain should be used to access the key saved onchain since they are necessary to resolve 
+    // TXT record they dns
     function setDkimKeyRsa(string memory _selector, string memory _domain, bytes memory _exponent, bytes memory _modulus) public onlyOracle returns(bool){
         // Extra requirements can be added here to avoid issue with domainkey dns record update
         KeyRsa storage key = dkimKeysRsa[keccak256(abi.encodePacked(_selector))][keccak256(abi.encodePacked(_domain))];
@@ -93,15 +77,12 @@ contract DkimChecker is Ownable, RSA, ED25519, SHA1, SHA512 {
     
     // ----------------------------------------------------------------------------------------------------//
     // ----------------------------------------------------------------------------------------------------//
-    // ----------------------------------------------------------------------------------------------------//
-    // ----------------------------------------------------------------------------------------------------//
-    // ----------------------------------------------------------------------------------------------------//
-    // ----------------------------------------------------------------------------------------------------//
-    // ----------------------------------------------------------------------------------------------------//
-    // ----------------------------------------------------------------------------------------------------//
 
     event ReturnVal(bool);
 
+    // If any valuable information contained inside the body of the emain needs to be used checkBody function 
+    // should be added to the verification step to avoid any exploit
+    
     function checkBodySHA1(bytes memory body, bytes20 bodyHash) public returns (bool){
       bytes20 computed = sha1(body);
 
@@ -111,20 +92,15 @@ contract DkimChecker is Ownable, RSA, ED25519, SHA1, SHA512 {
 
     function checkBodySHA256(bytes memory body, bytes32 bodyHash) public returns (bool){
       bytes32 computed = sha256(body);
-
         emit ReturnVal(bodyHash == computed); // just added to simulate a non-view function
         return true;
     }
 
     // ----------------------------------------------------------------------------------------------------//
     // ----------------------------------------------------------------------------------------------------//
-    // ----------------------------------------------------------------------------------------------------//
-    // ----------------------------------------------------------------------------------------------------//
-    // ----------------------------------------------------------------------------------------------------//
-    // ----------------------------------------------------------------------------------------------------//
-    // ----------------------------------------------------------------------------------------------------//
-    // ----------------------------------------------------------------------------------------------------//
 
+    // _canonicalizedHeader is the header preprocessed and canonicalized all information can be extracted on-chain from from it
+    
     function verifyRSASHA256(string memory _selector, string memory _domain, bytes memory _sig, bytes memory _canonicalizedHeader) public returns (bool) {
         // Recover the message from the signature
         KeyRsa memory key = dkimKeysRsa[keccak256(abi.encodePacked(_selector))][keccak256(abi.encodePacked(_domain))];
@@ -138,6 +114,8 @@ contract DkimChecker is Ownable, RSA, ED25519, SHA1, SHA512 {
         return bl;
     }
 
+    // _canonicalizedHeader is the header preprocessed and canonicalized all information can be extracted on-chain from from it
+    
     function verifyRSASHA1(string memory _selector, string memory _domain,bytes memory _sig,  bytes memory _canonicalizedHeader) public returns (bool) {
 
         KeyRsa memory key = dkimKeysRsa[keccak256(abi.encodePacked(_selector))][keccak256(abi.encodePacked(_domain))];
@@ -152,8 +130,8 @@ contract DkimChecker is Ownable, RSA, ED25519, SHA1, SHA512 {
     }
 
     // For more details abt ed25519 verification function check https://tools.ietf.org/html/rfc8032#section-5.1
-    // "_R" and "_s" are the signature component.
-    // _hash is the sha512 of abi.encodePacked(r,p,sha256(_canonicalizedHeader))
+    // _r,_R and "_s" are the signature component.
+    // _canonicalizedHeader is the header preprocessed and canonicalized all information can be extracted on-chain from from it
 
     function verifyED25519 ( 
         string memory _selector, 

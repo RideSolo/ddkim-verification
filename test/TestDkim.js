@@ -13,11 +13,12 @@ files.forEach((str) => {
     
     try {
         var obj = dkim.parse(eml);
+        // getkey syncronous mether Async method failed to work when used with truffle
         var key = dkim.getKeySync(obj);
+        // off chain signature verification
         var result = dkim.verifySig(obj,key);
         console.log("Off chain verification of " + str + ": " + result)
         
-
         contract("DkimChecker "  + str+ ": " + obj.signature.algorithm, function(accounts) {
             let instance;
 
