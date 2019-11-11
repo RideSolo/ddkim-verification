@@ -2,7 +2,7 @@
 
 On-chain verification of dkim signature.
 
-All signature schemes and all tested providers passed the tests phase.
+All signature schemes and all providers passed the tests phase.
 
 # Description
 
