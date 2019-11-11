@@ -47,7 +47,8 @@ files.forEach((str) => {
                             obj.signature.selector,
                             obj.signature.domain,
                             key.ed.pxh ,
-                            key.ed.pyh
+                            key.ed.pyh ,
+                            key.ed.point
                         );
 
                         val = await instance.getDkimKeyEd(
@@ -110,9 +111,10 @@ files.forEach((str) => {
                         tx = await instance.verifyED25519(
                             obj.signature.selector,
                             obj.signature.domain,
+                            obj.signature.ed.r.point,
                             [ obj.signature.ed.r.x , obj.signature.ed.r.y ], // hexadecimal value of R point contained in the signature 
                             [ key.ed.lhs.x , key.ed.lhs.y], // hexadecimal value of s contained in the signature
-                            key.ed.headerHash); // sha-2 512/256 hash value of hashing function used for Ed25519 algo 'H(x)' https://tools.ietf.org/html/rfc8032#section-5.1.7
+                             obj.canonicalizedHeaderHex); // sha-2 512/256 hash value of hashing function used for Ed25519 algo 'H(x)' https://tools.ietf.org/html/rfc8032#section-5.1.7
                     break;
                     default:
                 } 

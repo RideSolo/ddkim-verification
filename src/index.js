@@ -10,5 +10,3 @@ var obj = dkim.parse(gmail);
 var key = dkim.getKey(obj).then((key) => {
 	console.log(dkim.verifySig(obj,key))
 });
-
-

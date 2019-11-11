@@ -4,10 +4,11 @@ import "./algorithms/BytesUtils.sol";
 import "./algorithms/RSA.sol";
 import "./algorithms/ED25519.sol";
 import "./algorithms/SHA1.sol";
+import "./algorithms/SHA512.sol";
 
 import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 
-contract DkimChecker is Ownable, RSA, ED25519, SHA1 {
+contract DkimChecker is Ownable, RSA, ED25519, SHA1, SHA512 {
     using BytesUtils for *;
 
     // ----------------------------------------------------------------------------------------------------//
@@ -27,9 +28,10 @@ contract DkimChecker is Ownable, RSA, ED25519, SHA1 {
     struct KeyEd {
         uint x;
         uint y;
+        uint p;
     }
 
-    address public oracle; 	// to be set to the oracle contract address for access restrictions
+    address public oracle;  // to be set to the oracle contract address for access restrictions
     mapping(bytes32 => mapping(bytes32 => KeyRsa)) public dkimKeysRsa;     // domain name => selector => key
     mapping(bytes32 => mapping(bytes32 => KeyEd)) public dkimKeysEd;     // domain name => selector => bytes(key)
     
@@ -48,8 +50,8 @@ contract DkimChecker is Ownable, RSA, ED25519, SHA1 {
 
     // Should be used with all function involving the oracle interaction, for access restrictions
     modifier onlyOracle() {
-    	if(msg.sender != oracle) revert("The msg.sender is different than the oracle address");
-    	_;
+        if(msg.sender != oracle) revert("The msg.sender is different than the oracle address");
+        _;
     }
 
     // ----------------------------------------------------------------------------------------------------//
@@ -70,11 +72,12 @@ contract DkimChecker is Ownable, RSA, ED25519, SHA1 {
         return true;
     }
 
-    function setDkimKeyEd(string memory _selector, string memory _domain, uint x, uint y) public onlyOracle returns(bool){
+    function setDkimKeyEd(string memory _selector, string memory _domain, uint x, uint y, uint p) public onlyOracle returns(bool){
         // Extra requirements can be added here to avoid issue with domainkey dns record update
         KeyEd storage key = dkimKeysEd[keccak256(abi.encodePacked(_selector))][keccak256(abi.encodePacked(_domain))] ;
         key.x = x;
         key.y = y;
+        key.p = p;
         return true;
     }
 
@@ -151,14 +154,24 @@ contract DkimChecker is Ownable, RSA, ED25519, SHA1 {
     // For more details abt ed25519 verification function check https://tools.ietf.org/html/rfc8032#section-5.1
     // "_R" and "_s" are the signature component.
     // _hash is the sha512 of abi.encodePacked(r,p,sha256(_canonicalizedHeader))
-    
-    function verifyED25519( string memory _selector, string memory _domain, uint[2] memory _R, uint[2] memory _lhs ,uint _hash)
+
+    function verifyED25519 ( 
+        string memory _selector, 
+        string memory _domain, 
+        uint _r, 
+        uint[2] memory _R, 
+        uint[2] memory _lhs ,
+        bytes memory _canonicalizedHeader
+    )
+
     public returns (bool)
     {
         KeyEd memory key = dkimKeysEd[keccak256(abi.encodePacked(_selector))][keccak256(abi.encodePacked(_domain))];
         uint[2] memory rhs;
 
-        (rhs[0], rhs[1])  = scalarMult([key.x , key.y], _hash);
+        uint hash_512_mod_l = sha512modl(_r, key.p, uint256(sha256(_canonicalizedHeader)));
+        
+        (rhs[0], rhs[1])  = scalarMult([key.x , key.y], hash_512_mod_l);
         uint[2] memory Rs = ecAddVec(_R,rhs);
 
         bool bl = (_lhs[0] == Rs[0] && _lhs[1] == Rs[1]);

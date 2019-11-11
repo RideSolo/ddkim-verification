@@ -69,6 +69,7 @@ function parseEd25519Signature( obj) {
   
   obj.signature.ed.r.x = '0x'+s.r.x.toString(16);
   obj.signature.ed.r.y = '0x'+s.r.y.toString(16);
+  obj.signature.ed.r.point = '0x' + s.r.toHex();
   obj.signature.ed.s = '0x'+s.s.toString(16);
 }
 
@@ -231,6 +232,7 @@ function parseKeyRecord(records) {
   // If the result returned from the query does not adhere to the
   // format defined in this specification, the Verifier MUST ignore
   // the key record and return PERMFAIL (key syntax error).
+
   if( key == null || !Buffer.isBuffer( key.key ) ) {
     error = new Error( 'No public key found' )
     error.code = DKIM.PERMFAIL
@@ -267,13 +269,14 @@ function parseKey(obj,key) {
 
     var p = ed25519noble.Point.fromHex(key.key);
     var s = ed25519noble.SignResult.fromHex(obj.signature.signature);
+
     key.ed = {};
     
     key.ed.px = p.x;
     key.ed.py = p.y;
-
-    key.ed.pxh = '0x'+p.x.toString(16);
-    key.ed.pyh = '0x'+p.y.toString(16);
+    key.ed.point = '0x'+ p.toHex();
+    key.ed.pxh = '0x'+ p.x.toString(16);
+    key.ed.pyh = '0x'+ p.y.toString(16);
 
     key.ed.lhs = {};
 

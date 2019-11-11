@@ -2,7 +2,10 @@
   "name": "dkim-auth-dapp",
   "version": "1.0.0",
   "description": "Dapp implemented to enbale users sign-up process using email on blockchains",
-  "main": "index.js",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
   "scripts": {
     "pretest": "truffle compile",
     "watch": "npm-watch",

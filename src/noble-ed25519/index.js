@@ -217,7 +217,8 @@ function arrayToNumberBE(bytes) {
 function hashNumberSync(...args) {
     const {createHash} = require("crypto");
     const messageArray = concatTypedArrays(...args);
-    const hash = Uint8Array.from(createHash("sha512").update(messageArray).digest());
+    const hashc = createHash("sha512").update(messageArray).digest();
+    const hash = Uint8Array.from(hashc);
     const value = arrayToNumberLE(hash);
     return mod(value, exports.PRIME_ORDER);
 }

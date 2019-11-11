@@ -9,7 +9,7 @@ The canonicalized header can  be used later on inside the function to extract in
 
 - RSA-SHA256 verification on-chain cost through the testing an average of 112k gas 
 - RSA-SHA1 verification on-chain costed  310k gas mainly due to fact that sha1 algorithm is not precompiled in the EVM.
-- ED25519-SHA256 verification costed 500k while passing the hash from outside (ED22519 uses sha256 as prehash and sha512 as H(x) internaly, since no library was ready to use for sha512, the next step will be to implement the sha512 algorithm onchain to do a full verification on-chain);
+- ED25519-SHA256 verification costed 700k with full onchain verification (ED25519-SHA256 is the most gas consumptive schere since it requires sha256/sha512/and edDsa algorithms, the implemented sha512 is not widely optimized and the gas consumption results can be reduced further).
 
 # Instalation
 
