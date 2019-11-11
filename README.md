@@ -1,5 +1,8 @@
 # ddkim-verification
-on-chain verification of dkim signature 
+
+On-chain verification of dkim signature.
+
+All signature schemes and all tested providers passed the tests phase.
 
 # Description
 
